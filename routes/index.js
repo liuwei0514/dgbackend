@@ -22,26 +22,41 @@ var keystone = require('keystone');
 var middleware = require('./middleware');
 var importRoutes = keystone.importer(__dirname);
 
+var restful = require('restful-keystone')(keystone);
+
 // Common Middleware
 keystone.pre('routes', middleware.initLocals);
 keystone.pre('render', middleware.flashMessages);
 
 // Import Route Controllers
 var routes = {
-	views: importRoutes('./views')
+    views: importRoutes('./views'),
+    api: importRoutes('./api')
 };
 
 // Setup Route Bindings
 exports = module.exports = function(app) {
-	
-	// Views
-	app.get('/', routes.views.index);
-	app.get('/blog/:category?', routes.views.blog);
-	app.get('/blog/post/:post', routes.views.post);
-	app.get('/gallery', routes.views.gallery);
-	app.all('/contact', routes.views.contact);
-	
-	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
-	// app.get('/protected', middleware.requireUser, routes.views.protected);
-	
+    app.all('/api*', keystone.middleware.cors);
+
+    //Explicitly define which lists we want exposed
+    restful.expose({
+        PostCategory: true,
+        Post: {
+            populate: "categories"
+        },
+        User: true
+    }).start();
+    // Views
+    app.get('/', routes.views.index);
+    app.get('/blog/:category?', routes.views.blog);
+    app.get('/blog/post/:post', routes.views.post);
+    app.get('/gallery', routes.views.gallery);
+    app.all('/contact', routes.views.contact);
+    app.get('/api/v2/product/:productid', routes.api.product);
+    app.get('/api/v2/products/:category?', routes.api.products);
+    app.post('/api/v2/product', routes.api.productInsert);
+
+    // NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
+    // app.get('/protected', middleware.requireUser, routes.views.protected);
+
 };
