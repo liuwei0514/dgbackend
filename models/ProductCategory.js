@@ -6,20 +6,42 @@ var keystone = require('keystone');
  */
 
 var ProductCategory = new keystone.List('ProductCategory', {
-});
-
-ProductCategory.add({
-	urlKey: {
-        type: String
-    },
-    floorIndex: {
-        type: Number
-    },
-    name: {
-        type: String
+    autokey: {
+        from: 'parent.urlKey floorIndex',
+        path: 'name',
+        unique: true
     }
 });
 
-ProductCategory.relationship({ ref: 'Product', path: 'categories' });
+ProductCategory.add({
+    url: {
+        type: String,
+        initial: true
+    },
+    floorIndex: {
+        type: Number,
+        initial: true
+    },
+    title: {
+        type: String,
+        initial: true
+    },
+    parent: {
+        title: {
+            type: String,
+            initial: true
+        },
+        urlKey: {
+            type: String,
+            initial: true
+        }
+    }
+});
+
+ProductCategory.relationship({
+    ref: 'Product',
+    path: 'category'
+});
+ProductCategory.defaultColumns = 'title, parent.title';
 
 ProductCategory.register();

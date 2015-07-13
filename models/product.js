@@ -1,6 +1,8 @@
 var keystone = require('keystone');
 var Types = keystone.Field.Types;
-var modelCleanCyclic = require('./modelCleanCyclic');
+var mongoose = keystone.mongoose;
+
+// var modelCleanCyclic = require('./modelCleanCyclic');
 
 /**
  * Product Model
@@ -17,8 +19,9 @@ Product.add({
     baseinfo: {
         itemId: {
             type: String,
-            index: true,
-            unique: true,
+            index: {
+                unique: true
+            },
             require: true,
             initial: true
         },
@@ -102,16 +105,6 @@ Product.add({
         shortName: {
             type: String
         },
-        tags: {
-            type: Types.Relationship,
-            ref: 'Tag',
-            many: true
-        },
-        categories: {
-            type: Types.Relationship,
-            ref: 'ProductCategory',
-            many: true
-        },
         title: {
             type: String
         }
@@ -151,6 +144,17 @@ Product.add({
         soldCount: {
             type: Number
         }
+    },
+    category: {
+        type: String,
+        index: true
+    },
+});
+
+
+Product.schema.add({
+    tags: {
+        type: mongoose.Schema.Types.Mixed
     }
 });
 // Product.schema.set('toJSON', {

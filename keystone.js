@@ -43,7 +43,9 @@ keystone.init({
     'auth': true,
     'user model': 'User',
     'cookie secret': ')ki[TQ2NlJspV<c}*.@-w1-A&<4>|3<.FT9>Wq)n`1$h(#n?{$#>ci4P]DOT:*Cy',
-    'cors allow origin': true
+    'cors allow origin': true,
+    'cors allow methods': "GET,PUT,POST,DELETE,OPTIONS",
+    'cors allow headers': "Content-Type, Authorization"
 
 });
 
