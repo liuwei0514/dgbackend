@@ -1,19 +1,19 @@
 var async = require('async'),
     keystone = require('keystone'),
-    Product = keystone.list('Product');
+    Qing = keystone.list('Qing');
 
 exports = module.exports = {
     list: function(req, res, next) {
 
-        var q = keystone.list('Product').paginate({
+        var q = keystone.list('Qing').paginate({
             page: req.query.page || 1,
             perPage: 10,
-            maxPages: 10
+            maxPages: 100
         });
         // .populate('categories');
 
         if (req.params.category) {
-            q.where('categories').in([req.params.category]);
+            q.where('category').in([req.params.category]);
         }
 
         q.exec(function(err, results) {
@@ -23,14 +23,14 @@ exports = module.exports = {
     },
     create: function(req, res, next) {
         var items = req.body.itemList;
-        var categoryName = req.body.categoryName;
+        var category = req.body.category;
         var len = items.length;
         async.eachSeries(items, function(item, callback) {
-            var product = new Product.model(item);
-            product.category = categoryName;
-            product.tags = item.name.tags;
+            var product = new Qing.model(item);
+            product.category = category;
+            product.collectedDate = new Date();
             product.save(function(err){
-                callback(null); 
+                callback(null);
             });
         }, function(err) {
             res.status(200).end();

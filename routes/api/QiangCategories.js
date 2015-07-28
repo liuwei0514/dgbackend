@@ -4,9 +4,9 @@ var async = require('async'),
 exports = module.exports = {
     list: function(req, res, next) {
 
-        var q = keystone.list('ProductCategory').paginate({
+        var q = keystone.list('QiangCategory').paginate({
             page: req.query.page || 1,
-            perPage: 10,
+            perPage: 100,
             maxPages: 10
         });
 

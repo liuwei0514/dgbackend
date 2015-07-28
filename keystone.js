@@ -45,8 +45,13 @@ keystone.init({
     'cookie secret': ')ki[TQ2NlJspV<c}*.@-w1-A&<4>|3<.FT9>Wq)n`1$h(#n?{$#>ci4P]DOT:*Cy',
     'cors allow origin': true,
     'cors allow methods': "GET,PUT,POST,DELETE,OPTIONS",
-    'cors allow headers': "Content-Type, Authorization"
-
+    'cors allow headers': "Content-Type, Authorization",
+    'ssl':true,
+    'ssl key':'800taobao_nopass.key',
+    'ssl cert':'800taobao.crt',
+    // 'ssl ca':'',
+    'ssl port':'3001',
+    'file limit':'50mb'
 });
 
 // Load your project's Models
@@ -74,7 +79,10 @@ keystone.set('routes', require('./routes'));
 // Configure the navigation bar in Keystone's Admin UI
 
 keystone.set('nav', {
-    'products': ['products', 'product-categories', 'tags'],
+    'JHS': ['JHS', 'jhscategories'],
+    'qings': ['qings', 'qing-categories'],
+    'qiangs': ['qiangs', 'qiang-categories'],
+    'tejia': ['tejia', 'tejia-categories'],
     'posts': ['posts', 'post-categories'],
     'galleries': 'galleries',
     'enquiries': 'enquiries',

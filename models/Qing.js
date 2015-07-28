@@ -5,17 +5,15 @@ var mongoose = keystone.mongoose;
 // var modelCleanCyclic = require('./modelCleanCyclic');
 
 /**
- * Product Model
+ * Qing Model
  * ==========
  */
 
-var Product = new keystone.List('Product', {
-    map: {
-        name: "baseinfo.itemId"
-    }
+var Qing = new keystone.List('Qing', {
+    
 });
 
-Product.add({
+Qing.add({
     baseinfo: {
         itemId: {
             type: String,
@@ -71,6 +69,9 @@ Product.add({
         }, //销售比例
         stock: {
             type: Number
+        }, 
+        totalStock: {
+            type: Number
         }
     },
     extend: {
@@ -82,17 +83,6 @@ Product.add({
         },
         titleIcon: {
             type: String
-        }
-    },
-    merit: {
-        desc: {
-            type: Types.TextArray
-        },
-        down: {
-            type: Types.TextArray
-        },
-        up: {
-            type: Types.TextArray
         }
     },
     name: {
@@ -129,11 +119,6 @@ Product.add({
             type: String
         }
     },
-    promotion: {
-        hongbao: {
-            type: Number
-        }
-    },
     remind: {
         fire: {
             type: Boolean
@@ -145,22 +130,10 @@ Product.add({
             type: Number
         }
     },
-    category: {
-        type: String,
-        index: true
-    },
+    collectedDate: { type: Types.Date, index: true },
+    category: { type: Types.Relationship, ref: 'QingCategory', many: false ,index: true}
 });
 
 
-Product.schema.add({
-    tags: {
-        type: mongoose.Schema.Types.Mixed
-    }
-});
-// Product.schema.set('toJSON', {
-//   virtuals: true,
-//   transform: modelCleanCyclic.transformer
-// });
-
-Product.defaultColumns = 'baseinfo.itemId, name.shortName, price.actPrice';
-Product.register();
+Qing.defaultColumns = 'baseinfo.itemId, name.shortName, price.actPrice';
+Qing.register();
