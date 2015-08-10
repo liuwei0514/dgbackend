@@ -130,7 +130,7 @@ Qing.add({
             type: Number
         }
     },
-    collectedDate: { type: Types.Date, index: true },
+    collectedDate: { type: Types.Datetime, index: true },
     category: { type: Types.Relationship, ref: 'QingCategory', many: false ,index: true}
 });
 

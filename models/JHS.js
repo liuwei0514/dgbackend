@@ -143,7 +143,7 @@ JHS.add({
             type: Number
         }
     },
-    collectedDate: { type: Types.Date, index: true },
+    collectedDate: { type: Types.Datetime, index: true },
     category: { type: Types.Relationship, ref: 'JHSCategory', many: false ,index: true}
 });
 
