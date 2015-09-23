@@ -10,6 +10,7 @@ exports = module.exports = {
             perPage: 10,
             maxPages: 100
         });
+        q= q.sort('-collectedDate');
         // .populate('categories');
 
         if (req.params.category) {

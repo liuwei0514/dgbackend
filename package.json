@@ -10,7 +10,7 @@
     "express": "^4.13.0",
     "express-handlebars": "^1.1.0",
     "handlebars": "^2.0.0",
-    "keystone": "^0.3.11",
+    "keystone": "^0.3.13",
     "moment": "^2.8.1",
     "mongoose": "^4.0.6",
     "restful-keystone": "^0.3.0",

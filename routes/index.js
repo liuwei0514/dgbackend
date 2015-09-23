@@ -47,20 +47,46 @@ exports = module.exports = function(app) {
     app.get('/gallery', routes.views.gallery);
     app.all('/contact', routes.views.contact);
     app.get('/api/v2/jhs/:category?', keystone.middleware.api, routes.api.JHS.list);
-    app.post('/api/v2/jhs', keystone.middleware.api, routes.api.JHS.create);
+    app.post('/api/v3/jhs', keystone.middleware.api, routes.api.JHS.create);
     app.get('/api/v2/jhscategories', keystone.middleware.api, routes.api.JHSCategories.list);
 
     app.get('/api/v2/qing/:category?', keystone.middleware.api, routes.api.Qing.list);
-    app.post('/api/v2/qing', keystone.middleware.api, routes.api.Qing.create);
+    app.post('/api/v3/qing', keystone.middleware.api, routes.api.Qing.create);
     app.get('/api/v2/qingcategories', keystone.middleware.api, routes.api.QingCategories.list);
 
     app.get('/api/v2/qiang/:category?', keystone.middleware.api, routes.api.Qiang.list);
-    app.post('/api/v2/qiang', keystone.middleware.api, routes.api.Qiang.create);
+    app.post('/api/v3/qiang', keystone.middleware.api, routes.api.Qiang.create);
     app.get('/api/v2/qiangcategories', keystone.middleware.api, routes.api.QiangCategories.list);
 
     app.get('/api/v2/tejia/:category?', keystone.middleware.api, routes.api.Tejia.list);
-    app.post('/api/v2/tejia', keystone.middleware.api, routes.api.Tejia.create);
+    app.post('/api/v3/tejia', keystone.middleware.api, routes.api.Tejia.create);
     app.get('/api/v2/tejiacategories', keystone.middleware.api, routes.api.TejiaCategories.list);
+
+
+    //新增用户，只是记录了taobao账号，时间，同时 初始化用户每月返利
+    app.post('/api/v2/AppUser', keystone.middleware.api, routes.api.AppUser.create);
+    // app.post('/api/v3/Reward', keystone.middleware.api, routes.api.Reward.create);
+    app.get('/api/v2/Reward/:appUserId', keystone.middleware.api, routes.api.Reward.list);
+
+    //流量页面浏览
+    app.post('/api/v2/ViewLog', keystone.middleware.api, routes.api.ViewLog.create);
+    // //下载
+    app.post('/api/v2/DownloadLog', keystone.middleware.api, routes.api.DownloadLog.create);
+
+   // //获取验证码
+   //  app.get('/api/v3/getCAPTCHA', keystone.middleware.api, routes.api.AppUser.getCAPTCHA);
+   //  //修改手机号，（先验证手机号，必须是之前没手机号码才能修改）
+   //  app.get('/api/v3/updateTel', keystone.middleware.api, routes.api.AppUser.updateTel);
+
+    //分享
+    // app.post('/api/v2/SharedLog', keystone.middleware.api, routes.api.SharedLog.create);
+    //分享被点击
+    app.post('/api/v2/ShareViewedLog', keystone.middleware.api, routes.api.ShareViewedLog.create);
+    //分享被下载
+   //  app.post('/api/v3/ShareDownloadLog', keystone.middleware.api, routes.api.ShareDownloadLog.create);
+   //  //分享被下载
+   //  app.post('/api/v3/ShareDownloadLog', keystone.middleware.api, routes.api.ShareDownloadLog.create);
+
 
     // NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
     // app.get('/protected', middleware.requireUser, routes.views.protected);
