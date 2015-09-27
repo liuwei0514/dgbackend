@@ -30,6 +30,7 @@ var getAppUser = function(req, res, next) {
 var create = function(req, res, next) {
     var taobaoid = req.body.taobaoid;
     var tel = req.body.tel;
+    var reference = req.body.reference;
 
     AppUser.model.find().where('taobaoid', taobaoid).exec(function(err, appUsers) {
         if (appUsers && appUsers.length > 0) {
@@ -43,6 +44,9 @@ var create = function(req, res, next) {
                 appUser.tel = tel;
             }else{
                 appUser.state = "unValidated";
+            }
+            if(reference){
+                appUser.reference = reference;
             }
             
             appUser.save(function(err) {
