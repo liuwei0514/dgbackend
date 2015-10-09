@@ -62,11 +62,14 @@ exports = module.exports = function(app) {
     app.post('/api/v3/tejia', keystone.middleware.api, routes.api.Tejia.create);
     app.get('/api/v2/tejiacategories', keystone.middleware.api, routes.api.TejiaCategories.list);
 
+    app.get('/api/v2/ziying/?', keystone.middleware.api, routes.api.Ziying.list);
 
     //新增用户，只是记录了taobao账号，时间，同时 初始化用户每月返利
     app.post('/api/v2/AppUser', keystone.middleware.api, routes.api.AppUser.create);
     // app.post('/api/v3/Reward', keystone.middleware.api, routes.api.Reward.create);
     app.get('/api/v2/Reward/:appUserId', keystone.middleware.api, routes.api.Reward.list);
+
+    app.post('/api/v2/sendCaptcha', keystone.middleware.api, routes.api.AppUser.sendCaptcha);
 
     //流量页面浏览
     app.post('/api/v2/ViewLog', keystone.middleware.api, routes.api.ViewLog.create);
